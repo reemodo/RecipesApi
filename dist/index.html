@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Balthazar" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="pageContainer">
+        <h1>Find Your Recipes</h1>
+        <div class="headContainer">
+            <input id="wantedItemText" type="text" placeholder="Enter the wanted item">
+            <input id="exludedItem" type="text" placeholder="Enter the exluded item">
+            <input id="searchButton" type="button" value="search">
+            <input id="favaritsButton" type="button" value="favarits">
+            <div class="filterContainer">
+                <input id="glutenFree" type="checkbox" name="Gluten">
+                <label for="Gluten">Gluten</label>
+                <input id="dairyFree" type="checkbox" name="Dairy">
+                <label for="Dairy">Dairy</label>
+            </div>
+        </div>
+        <div class="bodyContainer">
+            
+        </div>
+    </div>
+    <script id="freindsList" type="text/x-handelbars-template">
+        <ul>
+            {{#each freindsList}}
+                <li class="user-info"> {{this.firstName}} {{this.lastName}} </li>
+            {{/each}}
+        </ul>
+    </script>
+    <script id="recipySource" type="text/x-handelbars-template">
+        <div class="recipyContainer">
+            <div class="recipyHeader">
+                <a id="recipyTitle" href="{{this.videoUrl}}">
+                        {{this.title}}
+                </a>
+                <div class="heartContainer" data-id={{this.id}}> 
+                    {{#if this.favarite}}
+                    <svg viewBox="0 0 100 100" class='heart-stroke'  style="fill: red;" >
+                        {{else}}
+                        <svg viewBox="0 0 100 100" class='heart-stroke'  >
+{{/if}}
+
+                        <path d="M10,30 A20,20,0,0,1,50,30 A20,20,0,0,1,90,30 Q90,60,50,90 Q10,60,10,30 Z" />    
+                    </svg>
+                </div>
+            </div>
+            <div class="imgContainer">
+                <img id="recipyImg" src={{this.imgUrl}}>
+            </div>
+            <div class="instructionContainer">
+                <p id="instructionTitle">Instruction</p>
+                <ul id="RicipyInstructionList">
+                    {{#each this.ingredients}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </script>
+    <script src="./jquery/dist/jquery.js"></script>
+    <script src="./handlebars/dist/handlebars.js"></script>
+    <script src="recipyClass.js"></script>
+    <script src="recipesApiClass.js"></script>
+    <script src="renderer.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

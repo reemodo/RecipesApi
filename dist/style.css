@@ -1,0 +1,92 @@
+:root {
+    --stroke-width: 5px;
+    --heart-width: 20px;
+    --transition-length: 1.2s;
+    --heart-color: #d32f2f;
+ }
+ .pageContainer{
+    background: #432d04;
+    color: wheat;
+    /* align-content: center; */
+    justify-items: center;
+    display: grid;
+    grid-template-rows: 1fr;
+ }
+
+.bodyContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.recipyContainer{
+    background-color: orange;
+    position: relative;
+    margin: 10px;
+    padding:5px;
+}
+.imgContainer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+img{
+    width : 200px; 
+
+}
+ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#recipyTitle{
+    display: inline;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+.heart-stroke {
+    display: inline;
+    width: var(--heart-width, 100px);
+    position: absolute;
+    right: 0px;
+    fill: transparent;
+    stroke: var(--heart-color);
+    stroke-width: var(--stroke-width, 1px);
+ }
+
+ .heartContainer {
+    display: inline;
+    /* margin: 10px; */
+    position: relative;
+    /* right: 0px; */
+    /* top: 0px; */
+    clip-path: url(#svgClip);
+ }
+ 
+ .instructionContainer{
+    background-color: #e2d5bd6e;
+    padding: 5px;
+    border-radius: 20px;
+    margin: 5px;
+    color: black;
+ }
+ p#instructionTitle {
+    font-family: serif;
+    font-weight: bold;
+    padding-right: 10px;
+}
+li{
+    margin: 2px;
+    padding: 2px;
+}
+
+
+.recipyHeader {
+    display: grid;
+    grid-template-columns: 3fr 0.5fr;
+    margin: 10px;
+    text-align: left;
+}
+.headContainer {
+    display: grid;
+    grid-gap: 10px;
+}
