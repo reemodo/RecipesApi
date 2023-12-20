@@ -15,17 +15,15 @@ app.listen(port, function(){
     console.log(`Node server created at port ${port}`)
 })
 
-app.get("/favaritsRecipes", function(request, response){
-    // if(favaritsRecipes.length <= 0){
-    //     // response.statussend(alert("Your favarit list is empty"))
-    // }
-     response.send(favaritsRecipes)
-    })
+
 app.get("/:ingredient", function(request, response){
     const ingredient = request.params.ingredient
     axios.get(`https://recipes-goodness-elevation.herokuapp.com/recipes/ingredient/${ingredient}`)
         .then(res => { response.send(res.data.results)})
 })
+app.get("/favaritsRecipes", function(request, response){
+     response.send(favaritsRecipes)
+    })
 app.post("/favaritsRecipes",function(request, response){
     const recipyId = request.body.id
     favaritsRecipes.find(rec => rec.id == recipyId) ? response.end():

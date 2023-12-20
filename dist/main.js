@@ -47,39 +47,7 @@ $(".filterContainer").on("click","#dairyFree",function(){
     dairyFree = $(this)[0].checked 
     renderData()
 })
-$("body").on("click",".heartContainer",function(){
-    const id = $(this).data().id
-    const checked = $(this).find(".heart-stroke").css("fill") == 'rgb(255, 0, 0)'? true : false
-    if (checked){
-        $(this).find(".heart-stroke").css("fill","none")
-        $.ajax({
-            url:`/favaritsRecipes/${id}`,
-            type: 'DELETE',
-            success: function(data) {
-                Favaritsrecipes.favarits = []
-                Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits,data)
-            }
-        }).then(()=>(favartPage)?renderData():'')
-        //TODO REMOVE FROM FAVERTOUS
-    }
-    else{
-        //TODO ADD FROM FAVERTOUS
-        $.post('/favaritsRecipes',{"id" : id},function(data){
-            Favaritsrecipes.favarits = []
-            Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits,data)
-        })
-        $(this).find(".heart-stroke").css("fill","red")
-    }
-})
-$(".headContainer").on("click","#favaritsButton",function(){
-    $.get('/favaritsRecipes').then( (data) => {
-        favartPage =true
-        Favaritsrecipes.favarits = []
-        Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits ,data)
-        renderData()})
-        
 
-})
 // --------------------Reder Data --------------------------------------
 const renderData = function(){
     let recipesArr =  (favartPage)? Favaritsrecipes.favarits : recipesApi.recipesList
@@ -99,4 +67,35 @@ const renderData = function(){
 
 // --------------------Favarits List --------------------------------------
 
+$("body").on("click",".heartContainer",function(){
+    const id = $(this).data().id
+    const checked = $(this).find(".heart-stroke").css("fill") == 'rgb(255, 0, 0)'? true : false
+    if (checked){
+        $(this).find(".heart-stroke").css("fill","none")
+        $.ajax({
+            url:`/favaritsRecipes/${id}`,
+            type: 'DELETE',
+            success: function(data) {
+                Favaritsrecipes.favarits = []
+                Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits,data)
+            }
+        }).then(()=>(favartPage)?renderData():'')
+        
+    }
+    else{
+        $.post('/favaritsRecipes',{"id" : id},function(data){
+            Favaritsrecipes.favarits = []
+            Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits,data)
+        })
+        $(this).find(".heart-stroke").css("fill","red")
+    }
+})
+$(".headContainer").on("click","#favaritsButton",function(){
+    $.get('/favaritsRecipes').then( (data) => {
+        favartPage =true
+        Favaritsrecipes.favarits = []
+        Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits ,data)
+        renderData()})
+        
 
+})
