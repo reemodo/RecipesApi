@@ -70,10 +70,12 @@
                 </ul>
             </div>
             <div class="row">
-                <div class="col s10 m8 l9"> 
+                <div class="col s4 "> 
                 {{this.cheef}} </div>
-                <div class="col s2 m4 l10"> 
-                 <i class="material-icons">star</i><p class="rate">{{this.rate}}</p>
+                <div class="col s8 "> 
+                    {{#times this.rate}}
+                 <i class="material-icons">star</i><p class="rate">
+                 {{/times}}
                 </div>
             </div>
         </div>
