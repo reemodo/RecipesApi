@@ -7,7 +7,7 @@
  .pageContainer{
     background: #432d04;
     color: wheat;
-    /* align-content: center; */
+
     justify-items: center;
     display: grid;
     grid-template-rows: 1fr;
@@ -55,10 +55,9 @@ ul{
 
  .heartContainer {
     display: inline;
-    /* margin: 10px; */
+
     position: relative;
-    /* right: 0px; */
-    /* top: 0px; */
+
     clip-path: url(#svgClip);
  }
  
@@ -89,4 +88,14 @@ li{
 .headContainer {
     display: grid;
     grid-gap: 10px;
+}
+.footer {
+    color: black;
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+}
+.rate{
+    display: inline;
+
 }

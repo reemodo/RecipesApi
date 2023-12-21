@@ -10,6 +10,7 @@ let favartPage =false
 let glutenFree = false
 let dairyFree = false
 let excludedIngredient = []
+let cheefData = []
 
 // --------------------- Serach Button -------------------------------
 const serchRecipes = function(){
@@ -20,9 +21,9 @@ const serchRecipes = function(){
     }
     favartPage =false
     recipesApi.recipesList = []
-    $.get(`/${ingredient}`, function (storeData) {
-        recipesApi.fetchDataFromApi( recipesApi.recipesList,storeData)
-    }).then( (data) => {     
+    $.get(`/${ingredient}`, function (reponseResults ) {
+        recipesApi.fetchDataFromApi(recipesApi.recipesList,reponseResults )
+    }).then( () => {     
         renderData()
         
 })
@@ -36,8 +37,8 @@ $(".headContainer").on("click","#searchButton",function(){
 const filterByIngredient = function(arr, ingredient){
     return arr.find(ingredientEle => ingredient.toLowerCase().includes(ingredientEle.toLowerCase()))? true : false
 }
-const filterRecipes = function(recipesArr, itemToFilterBy){
-    return recipesArr.filter( recipy => recipy.ingredients.find(ingredient => filterByIngredient(itemToFilterBy, ingredient)) == undefined)
+const filterRecipes = function(recipy, itemToFilterBy){
+    return recipy.ingredients.find(ingredient => filterByIngredient(itemToFilterBy, ingredient)) == undefined
 }
 $(".filterContainer").on("click","#glutenFree",function(){
     glutenFree = $(this)[0].checked 
@@ -51,12 +52,9 @@ $(".filterContainer").on("click","#dairyFree",function(){
 // --------------------Reder Data --------------------------------------
 const renderData = function(){
     let recipesArr =  (favartPage)? Favaritsrecipes.favarits : recipesApi.recipesList
-     if(glutenFree)
-         recipesArr = filterRecipes(recipesArr, glutenIngredients)
-     if(dairyFree)
-         recipesArr = filterRecipes(recipesArr, dairyIngredients)
-     if(excludedIngredient[0] != "")
-         recipesArr = filterRecipes(recipesArr, excludedIngredient)
+    recipesArr = recipesArr.filter(recipy => (glutenFree)? filterRecipes(recipy, glutenIngredients) :true
+                   && (dairyFree) ?  filterRecipes(recipy, dairyIngredients):true
+                    && (excludedIngredient[0] != "")?  filterRecipes(recipy, excludedIngredient): true)
     if(Favaritsrecipes.favarits.length > 0 && !favartPage ){
         recipesArr.forEach( recipy => Favaritsrecipes.favarits.find(rec => rec.id == recipy.id)!=undefined?recipy.favarite=true: console.log(recipy.favarite))
     }
@@ -66,6 +64,7 @@ const renderData = function(){
  }
 
 // --------------------Favarits List --------------------------------------
+
 
 $("body").on("click",".heartContainer",function(){
     const id = $(this).data().id
@@ -80,7 +79,6 @@ $("body").on("click",".heartContainer",function(){
                 Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits,data)
             }
         }).then(()=>(favartPage)?renderData():'')
-        
     }
     else{
         $.post('/favaritsRecipes',{"id" : id},function(data){
@@ -96,6 +94,4 @@ $(".headContainer").on("click","#favaritsButton",function(){
         Favaritsrecipes.favarits = []
         Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits ,data)
         renderData()})
-        
-
 })
