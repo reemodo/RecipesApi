@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Balthazar" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-           
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Document</title>
 </head>
@@ -49,11 +46,10 @@
                 </a>
                 <div class="heartContainer" data-id={{this.id}}> 
                     {{#if this.favarite}}
-                    <svg viewBox="0 0 100 100" class='heart-stroke'  style="fill: red;" >
-                        {{else}}
+                        <svg viewBox="0 0 100 100" class='heart-stroke'  style="fill: red;" >
+                    {{else}}
                         <svg viewBox="0 0 100 100" class='heart-stroke'  >
-{{/if}}
-
+                    {{/if}}
                         <path d="M10,30 A20,20,0,0,1,50,30 A20,20,0,0,1,90,30 Q90,60,50,90 Q10,60,10,30 Z" />    
                     </svg>
                 </div>
@@ -65,26 +61,29 @@
                 <p id="instructionTitle">Instruction</p>
                 <ul id="RicipyInstructionList">
                     {{#each this.ingredients}}
-                    <li>{{this}}</li>
+                        <li>{{this}}</li>
                     {{/each}}
                 </ul>
             </div>
             <div class="row">
                 <div class="col s4 "> 
-                {{this.cheef}} </div>
+                    {{this.cheef}} 
+                </div>
                 <div class="col s8 "> 
                     {{#times this.rate}}
-                 <i class="material-icons">star</i><p class="rate">
-                 {{/times}}
+                         <i class="material-icons">star</i><p class="rate">
+                    {{/times}}
                 </div>
             </div>
         </div>
     </script>
     <script src="./jquery/dist/jquery.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
-    <script src="recipyClass.js"></script>
-    <script src="recipesApiClass.js"></script>
-    <script src="renderer.js"></script>
+    <script src="./Classes/cheefClass.js"></script>
+    <script src="./Classes/favaritsClass.js"></script>
+    <script src="./Classes/recipesApiClass.js"></script>
+    <script src="./Classes/recipyClass.js"></script>
+    <script src="./Classes/rendererClass.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

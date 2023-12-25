@@ -11,12 +11,7 @@ let glutenFree = false
 let dairyFree = false
 let excludedIngredient = []
 let cheefData = []
-Handlebars.registerHelper('times', function(n, block) {
-    var accum = '';
-    for(var i = 0; i < n; ++i)
-        accum += block.fn(i);
-    return accum;
-});
+
 // --------------------- Serach Button -------------------------------
 const serchRecipes = function(){
     const ingredient = $("#wantedItemText").val()
@@ -26,16 +21,21 @@ const serchRecipes = function(){
     }
     favartPage =false
     recipesApi.recipesList = []
-    $.get(`/${ingredient}`, function (reponseResults ) {
+   
+    $.get(`/${ingredient}?isDiary=${glutenFree}&isGluten=${dairyFree}&isExuldedIngredient=${excludedIngredient[0]}`, function (reponseResults ) {
         recipesApi.fetchDataFromApi(recipesApi.recipesList,reponseResults )
     }).then( () => {     
         renderData()
-        
-})
-    
-}
+})}
 $(".headContainer").on("click","#searchButton",function(){
     serchRecipes()
+})
+$(".headContainer").on("click","#favaritsButton",function(){
+    $.get('favaritsRecipes',function(data) {
+        favartPage =true
+        Favaritsrecipes.favarits = []
+        Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits ,data)
+        renderData()})
 })
 
 // --------------------- Filtter Check -------------------------------
@@ -54,7 +54,7 @@ $(".filterContainer").on("click","#dairyFree",function(){
     renderData()
 })
 
-// --------------------Reder Data --------------------------------------
+// --------------------Render Data --------------------------------------
 const renderData = function(){
     let recipesArr =  (favartPage)? Favaritsrecipes.favarits : recipesApi.recipesList
     recipesArr = recipesArr.filter(recipy => (glutenFree)? filterRecipes(recipy, glutenIngredients) :true
@@ -69,8 +69,6 @@ const renderData = function(){
  }
 
 // --------------------Favarits List --------------------------------------
-
-
 $("body").on("click",".heartContainer",function(){
     const id = $(this).data().id
     const checked = $(this).find(".heart-stroke").css("fill") == 'rgb(255, 0, 0)'? true : false
@@ -93,10 +91,12 @@ $("body").on("click",".heartContainer",function(){
         $(this).find(".heart-stroke").css("fill","red")
     }
 })
-$(".headContainer").on("click","#favaritsButton",function(){
-    $.get('/favaritsRecipes').then( (data) => {
-        favartPage =true
-        Favaritsrecipes.favarits = []
-        Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits ,data)
-        renderData()})
-})
+
+
+//-------------------Add to Hendlebars For Function --------------------------------------
+Handlebars.registerHelper('times', function(n, block) {
+    var accum = '';
+    for(var i = 0; i < n; ++i)
+        accum += block.fn(i);
+    return accum;
+});

@@ -2,7 +2,6 @@ class RecipesApi {
     constructor(favarite){
         this.recipesList = []
         this.favarite =favarite
-       
     }
     fetchDataFromApi( arr, data){
         data.recipesData.forEach( (recipe,index) => {
@@ -18,23 +17,10 @@ class RecipesApi {
             newRecipe.rate = Math.floor(Math.random() * 5) + 1
             newRecipe.cheef = data.cheefData[index].fullName
             arr.push(newRecipe)
-            
         });
     }
     addRandomCheef (recipe, fullName ){
         recipe.cheef =  new Cheef(fullName);
     }
 }
-class Cheef {
-    constructor(fullName){
-        this.name = fullName
-    }
-}
-class Favarits  extends RecipesApi {
-    constructor(){
-        super(true)
-        this.favarits=[]
-        
-    }
-    
-}
+

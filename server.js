@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, '.', 'node_modules')))
 const api = require('./server/routes/apiRecipes')
 
 // Connecting to "api", i.e our routes
-app.use('/', api)
+app.use('', api)
 
 // Running the server
 app.listen(port, function(){

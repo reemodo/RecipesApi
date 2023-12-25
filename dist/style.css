@@ -5,7 +5,7 @@
     --heart-color: #d32f2f;
  }
  .pageContainer{
-    background: #432d04;
+    background: #432d04d6;
     color: wheat;
 
     justify-items: center;
@@ -20,6 +20,7 @@
 .recipyContainer{
     background-color: orange;
     position: relative;
+    border-radius: 2%;
     margin: 10px;
     padding:5px;
 }
@@ -101,4 +102,17 @@ li{
 }
 .row{
     color : black;
+}
+[type="checkbox"]:checked,[type="checkbox"]:not(:checked) {
+    position: relative !important;
+    opacity: 100% !important;
+    pointer-events: visible !important;
+}
+input[type= text], label {
+    color: wheat !important;
+}
+
+input[type=button]{
+    background-color: #432d04 !important;
+    color:  wheat !important;
 }
