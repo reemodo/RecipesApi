@@ -22,22 +22,13 @@ router.get("/favaritsRecipes", function(request, response){
 // Post : Favairt Recipe to Favarits Lists
 router.post("/favaritsRecipes",function(request, response){
    const recipyId = request.body.id
-   // Check if its alrady in favarits List
-   if (favaritsRecipes.find(rec => rec.id == recipyId)){
-      response.status(202).end()
-   } 
    try {
-      axios.get(`${consts.apiRecipeByID}${recipyId}`)
-      .then(results => { 
-         const recipe = results.data
-         favaritsRecipes.push(recipe)})
-         .then(()=>{
-            Promise.all( [GyphyGenerator.gypyGenerator(favaritsRecipes) ])          
-                  .then(() =>{
-                      response.status(202).send({recipesData:favaritsRecipes, cheefData})
-                     })
-          })
-      
+      // Check if its alrady in favarits List
+      if (favaritsRecipes.find(rec => rec.id == recipyId)){
+         response.status(202).end()
+      } 
+      favaritsRecipes.push(recipesData.find(rec => rec.idMeal == recipyId))
+      response.status(202).send({recipesData:favaritsRecipes, cheefData})
    } catch (error) {
       response.status(404).send(`Faild to add Recipie with ID : ${recipyId} in Favarits List`)
    }

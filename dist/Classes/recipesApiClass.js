@@ -15,7 +15,7 @@ class RecipesApi {
             newRecipe.videoUrl = recipe.href
             newRecipe.favarite = this.favarite || false;
             newRecipe.rate = Math.floor(Math.random() * 5) + 1
-            newRecipe.cheef = data.cheefData[index].fullName
+            newRecipe.cheef = data.cheefData[index].fullName || ""
             arr.push(newRecipe)
         });
     }

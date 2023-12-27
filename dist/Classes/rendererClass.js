@@ -24,15 +24,19 @@ class Render{
         this.setupPagination(currentPage,totalPages);
         this.showItems(items,currentPage);
       }
-       showItems(items,page) {
+    showItems(items,page) {
         const startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        const pageItems = items.slice(startIndex, endIndex);
+        let pageItems;
+        if(items.length >= 5)
+            pageItems = items.slice(startIndex, endIndex);
+        else
+            pageItems = items
         this.removeElement(this.bodyContainer)
         this.renderRecipes(pageItems)
 
       }
-      setupPagination(currentPage,totalPages) { 
+    setupPagination(currentPage,totalPages) { 
         this.removeElement(this.paginationContainer)
         this.render(this.paginationSource, this.paginationContainer, {totalPages})
       }
