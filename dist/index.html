@@ -26,6 +26,7 @@
                 <input id="dairyFree" type="checkbox" name="Dairy">
                 <label for="Dairy">Dairy</label>
             </div>
+            <div class="paginationContainer"></div>
         </div>
         <div class="bodyContainer">
             
@@ -38,16 +39,25 @@
             {{/each}}
         </ul>
     </script>
+    <!-- 
+        <ul class="pagination">
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li class="active"><a href="#!">1</a></li>
+    <li class="waves-effect"><a href="#!">2</a></li>
+    <li class="waves-effect"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+    <li class="waves-effect"><a href="#!">5</a></li>
+    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+  </ul>
+     -->
     <script id="recipySource" type="text/x-handelbars-template">
         <div class="recipyContainer">
             <div class="recipyHeader">
-                <a id="recipyTitle" href="{{this.videoUrl}}">
-                        {{this.title}}
-                </a>
+                <a id="recipyTitle" href="{{this.videoUrl}}">{{this.title}}</a>
                 <div class="heartContainer" data-id={{this.id}}> 
                     {{#if this.favarite}}
                         <svg viewBox="0 0 100 100" class='heart-stroke'  style="fill: red;" >
-                    {{else}}
+                    {{else}}  
                         <svg viewBox="0 0 100 100" class='heart-stroke'  >
                     {{/if}}
                         <path d="M10,30 A20,20,0,0,1,50,30 A20,20,0,0,1,90,30 Q90,60,50,90 Q10,60,10,30 Z" />    
@@ -55,7 +65,7 @@
                 </div>
             </div>
             <div class="imgContainer">
-                <img id="recipyImg" src={{this.imgUrl}}>
+                <iframe  id="recipyImg" src={{this.imgUrl}}></iframe>
             </div>
             <div class="instructionContainer">
                 <p id="instructionTitle">Instruction</p>
@@ -66,24 +76,46 @@
                 </ul>
             </div>
             <div class="row">
-                <div class="col s4 "> 
+                <div class="col s1">
+                    
+                </div>
+                <div class="col s5"> 
                     {{this.cheef}} 
                 </div>
-                <div class="col s8 "> 
+                <div class="col s1"> 
+                    Rate:
+                </div>
+                <div class="col s5"> 
                     {{#times this.rate}}
                          <i class="material-icons">star</i><p class="rate">
                     {{/times}}
                 </div>
             </div>
+            <div>
+                <input id="emailUsButton" type="button" value="Email Us">
+            </div>
         </div>
+    </script>
+    <script id="paginationSource" type="text/x-handelbars-template">
+        <ul id="pagination" class="pagination">
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            {{#times this.totalPages}}
+                {{#ifCond this }}
+                <li class="waves-effect active" id={{this}}><a href="#!">{{this}}</a></li>
+                {{else}}
+                    <li class="waves-effect" id={{this}}><a href="#!">{{this}}</a></li>
+                {{/ifCond}}
+            {{/times}}
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
     </script>
     <script src="./jquery/dist/jquery.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
     <script src="./Classes/cheefClass.js"></script>
-    <script src="./Classes/favaritsClass.js"></script>
     <script src="./Classes/recipesApiClass.js"></script>
     <script src="./Classes/recipyClass.js"></script>
     <script src="./Classes/rendererClass.js"></script>
+    <script src="./Classes/favaritsClass.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

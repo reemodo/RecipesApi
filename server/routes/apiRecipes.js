@@ -4,6 +4,7 @@ const router = express.Router()
 const axios = require("axios")
 const CheefGenerator = require("../utlities/cheefGenerator")
 const FilterRecipes = require("../utlities/filterRecipes")
+const GyphyGenerator = require("../utlities/GyphyGenerator")
 let favaritsRecipes = []
 let recipesData = []
 let cheefData = []
@@ -11,26 +12,51 @@ let isDiarySenitivity = false
 let isGlutenSenitivity  = false
 let isExuldedIngredient = false
 
+
+
+// Get : Favarits Recipes  
 router.get("/favaritsRecipes", function(request, response){
-   response.send({recipesData:favaritsRecipes, cheefData})
-})
-router.post("/favaritsRecipes",function(request, response){
-   const recipyId = request.body.id
-   favaritsRecipes.find(rec => rec.id == recipyId) ? response.end():
-   axios.get(`${consts.apiRecipeByID}${recipyId}`)
-   .then(results => { 
-      const recipe = results.data
-      favaritsRecipes.push(recipe)
-      response.send({recipesData:favaritsRecipes,cheefData})})
+   response.status(202).send({recipesData:favaritsRecipes, cheefData})
 })
 
+// Post : Favairt Recipe to Favarits Lists
+router.post("/favaritsRecipes",function(request, response){
+   const recipyId = request.body.id
+   // Check if its alrady in favarits List
+   if (favaritsRecipes.find(rec => rec.id == recipyId)){
+      response.status(202).end()
+   } 
+   try {
+      axios.get(`${consts.apiRecipeByID}${recipyId}`)
+      .then(results => { 
+         const recipe = results.data
+         favaritsRecipes.push(recipe)})
+         .then(()=>{
+            Promise.all( [GyphyGenerator.gypyGenerator(favaritsRecipes) ])          
+                  .then(() =>{
+                      response.status(202).send({recipesData:favaritsRecipes, cheefData})
+                     })
+          })
+      
+   } catch (error) {
+      response.status(404).send(`Faild to add Recipie with ID : ${recipyId} in Favarits List`)
+   }
+})
+
+// Delete :  Favairt Recipe of Favarits Lists By Id
 router.delete("/favaritsRecipes/:id",function(request, response){
    const recipyId = request.params.id
    const indexRecipyIdToDelete = favaritsRecipes.findIndex(rec => rec.idMeal === recipyId)
-   favaritsRecipes.splice(indexRecipyIdToDelete, 1)
-   response.send({recipesData:favaritsRecipes,cheefData})
+   try {
+      favaritsRecipes.splice(indexRecipyIdToDelete, 1)
+      response.status(202).send({recipesData:favaritsRecipes,cheefData})
+   } catch (error) {
+      response.status(404).send(`Theres is no Recipie in Favarits List with this ID : ${recipyId}`)
+   }
+   
 })
 
+// Get : Recipes By Ingredient
 router.get("/:ingredient/", function(request, response){
    const ingredient = request.params.ingredient
    isDiarySenitivity = request.query.isDiary
@@ -45,9 +71,17 @@ router.get("/:ingredient/", function(request, response){
             isGlutenSenitivity == "true" ? sensitivityArray.push(consts.sensitivity.glutenIngredients):console.log(false)
             isExuldedIngredient != "" ? sensitivityArray.push ([isExuldedIngredient]) :console.log(false)
             recipesData = FilterRecipes.filterRecipesBySensitivites(sensitivityArray, recipesData)
-            response.send({recipesData:recipesData, cheefData})
          })
+         .then(()=>{
+            Promise.all( [GyphyGenerator.gypyGenerator(recipesData) ])          
+                  .then(() =>{
+                      response.status(202).send({recipesData:recipesData, cheefData})
+                     })
+          })
+         .catch(error => 
+            console.log(error))
 })
+
 
 
 module.exports = router

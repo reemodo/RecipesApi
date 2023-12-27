@@ -116,3 +116,16 @@ input[type=button]{
     background-color: #432d04 !important;
     color:  wheat !important;
 }
+
+
+
+ul#pagination {
+    display: block;
+}
+
+.pagination li a {
+    color: wheat  !important;
+}
+.pagination li.active {
+    background-color: #432e03  !important;
+}
