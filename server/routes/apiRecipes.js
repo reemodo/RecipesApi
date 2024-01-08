@@ -23,7 +23,6 @@ router.get("/favaritsRecipes", function(request, response){
 router.post("/favaritsRecipes",function(request, response){
    const recipyId = request.body.id
    try {
-      // Check if its alrady in favarits List
       if (favaritsRecipes.find(rec => rec.id == recipyId)){
          response.status(202).end()
       } 
