@@ -57,9 +57,9 @@ router.get("/:ingredient/", function(request, response){
             recipesData = res.data.results
             cheefData = CheefGenerator.createRandomUsers(recipesData.length)
             let sensitivityArray = []
-            isDiarySenitivity == "true" ? sensitivityArray.push(consts.sensitivity.dairyIngredients) : console.log(false)
-            isGlutenSenitivity == "true" ? sensitivityArray.push(consts.sensitivity.glutenIngredients):console.log(false)
-            isExuldedIngredient != "" ? sensitivityArray.push ([isExuldedIngredient]) :console.log(false)
+            isDiarySenitivity == "true" ? sensitivityArray.push(consts.sensitivity.dairyIngredients) : null
+            isGlutenSenitivity == "true" ? sensitivityArray.push(consts.sensitivity.glutenIngredients):null
+            isExuldedIngredient != "" ? sensitivityArray.push ([isExuldedIngredient]) :null
             recipesData = FilterRecipes.filterRecipesBySensitivites(sensitivityArray, recipesData)
          })
          .then(()=>{

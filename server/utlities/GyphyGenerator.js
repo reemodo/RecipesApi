@@ -1,7 +1,9 @@
 const axios = require("axios")
+const {consts }= require("../../config")
+const apiGiphy = consts.apiGiphy
 class GyphyGenerator{
     static gypyGenerator = function(recipesArr){
-        return axios.get(`https://api.giphy.com/v1/stickers/search?api_key=BbapDliSM0MOwoZWKlELEHVepw9UfKKU&q=food&type=gif&lang=en&limit=${recipesArr.length}`)
+        return axios.get(`${apiGiphy}${recipesArr.length}`)
         .then((response)=>{
             const gyphList = response.data.data
             recipesArr.forEach((recipe, index) => {
