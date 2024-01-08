@@ -25,6 +25,7 @@ const serchRecipes = function(){
         }})
     }
 $(".headContainer").on("click","#searchButton",function(){
+    currentPage = 1
     serchRecipes()
 })
 
@@ -50,11 +51,12 @@ const renderData = function(){
  }
 
 // --------------------Favarits List --------------------------------------
-// Add Button  By Api
+// Add Button  
 $(".headContainer").on("click","#favaritsButton",function(){
     $.get('favaritsRecipes',function(data) {
         is_favartPage =true
         Favaritsrecipes.favarits = []
+        currentPage = 1
         Favaritsrecipes.fetchDataFromApi(Favaritsrecipes.favarits ,data)
         renderData()})
 })
