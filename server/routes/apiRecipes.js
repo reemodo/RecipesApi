@@ -63,7 +63,7 @@ router.get("/:ingredient/", function(request, response){
             recipesData = FilterRecipes.filterRecipesBySensitivites(sensitivityArray, recipesData)
          })
          .then(()=>{
-            Promise.all( [GyphyGenerator.gypyGenerator(recipesData) ])          
+            GyphyGenerator.gypyGenerator(recipesData)         
                   .then(() =>{
                       response.status(202).send({recipesData:recipesData, cheefData})
                      })

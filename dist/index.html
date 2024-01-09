@@ -50,18 +50,21 @@
     <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
   </ul>
      -->
-    <script id="recipySource" type="text/x-handelbars-template">
+    <script id="recipySource" type="text/x-handlebars-template">
         <div class="recipyContainer">
             <div class="recipyHeader">
                 <a id="recipyTitle" href="{{this.videoUrl}}">{{this.title}}</a>
                 <div class="heartContainer" data-id={{this.id}}> 
                     {{#if this.favarite}}
                         <svg viewBox="0 0 100 100" class='heart-stroke'  style="fill: red;" >
+                            <path d="M10,30 A20,20,0,0,1,50,30 A20,20,0,0,1,90,30 Q90,60,50,90 Q10,60,10,30 Z" />    
+                         </svg>
                     {{else}}  
                         <svg viewBox="0 0 100 100" class='heart-stroke'  >
+                            <path d="M10,30 A20,20,0,0,1,50,30 A20,20,0,0,1,90,30 Q90,60,50,90 Q10,60,10,30 Z" />    
+                         </svg>
                     {{/if}}
-                        <path d="M10,30 A20,20,0,0,1,50,30 A20,20,0,0,1,90,30 Q90,60,50,90 Q10,60,10,30 Z" />    
-                    </svg>
+                        
                 </div>
             </div>
             <div class="imgContainer">
@@ -96,7 +99,7 @@
             </div>
         </div>
     </script>
-    <script id="paginationSource" type="text/x-handelbars-template">
+    <script id="paginationSource" type="text/x-handlebars-template">
         <ul id="pagination" class="pagination">
             <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
             {{#times this.totalPages}}
@@ -109,7 +112,7 @@
             <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
         </ul>
     </script>
-    <script src="./jquery/dist/jquery.js"></script>
+    <script src="./jquery/tmp/jquery.js"></script>
     <script src="./handlebars/dist/handlebars.js"></script>
     <script src="./Classes/cheefClass.js"></script>
     <script src="./Classes/recipesApiClass.js"></script>
