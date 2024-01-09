@@ -2,7 +2,7 @@ const express = require("express")
 const path = require("path")
 
 // Setting up express, serving client files, configuring bodyParser
-const port = 3000
+const port = 4000
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
